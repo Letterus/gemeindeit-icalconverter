@@ -1,0 +1,7 @@
+/data/*
+/log/*
+/vendor/
+/Reset reservations.sql
+.DS_Store
+/config/Configuration_Haus_Fuhr.php
+/config/Configuration_Kirche.php

@@ -1,0 +1,45 @@
+{
+    "name": "gemeindeit/icalconverter",
+    
+    "authors": [
+        {
+            "name": "Johannes Brakensiek",
+            "email": "johannes@gemeinde.it.de",
+            "homepage": "http://johannes.brakensiek.info"
+        }
+    ],
+    
+    "description": "Converts ics/iCal files. For example from Google Calendar to Booked Scheduler.",
+    
+    "keywords": [
+        "convert",
+        "ics",
+        "iCal",
+        "CalDAV",
+        "DAV",
+        "calendar",
+        "Google",
+        "Booked Scheduler"
+    ],
+    
+    "type": "project",
+    
+    "autoload": {
+        "psr-4": {"GemeindeIT\\iCalConverter\\": "."}
+    },
+    
+    "require": {
+        "php": "^7",
+        "psr/log": "~1.0",
+        "sabre/vobject": "^4.1",
+        "monolog/monolog": "^1.22"
+    },
+    
+    "provide": {
+        "psr/log-implementation": "1.0.0"
+    },
+    
+    "license": [
+        "AGPL-3.0"
+    ]
+}
