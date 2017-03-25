@@ -1,5 +1,4 @@
 /data/*
-/log/*
 /vendor/
 /Reset reservations.sql
 .DS_Store

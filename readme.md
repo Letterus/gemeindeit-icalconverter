@@ -17,6 +17,7 @@ imported to [Booked Scheduler](https://www.bookedscheduler.com/).
 2. `php composer.phar install`
 3. Execute iCalConverter:
 
+```
     Usage:
     ./iCalConverter.php <configurationfile> <importfile> <exportfile> [-debug]
 
@@ -29,6 +30,7 @@ imported to [Booked Scheduler](https://www.bookedscheduler.com/).
     -debug Add this option if you want to save debug information to log files in the log directory.
   
     Using the options --help, -help, -h oder -? you get this help.
+```
 
 ## How to configure
 
@@ -43,7 +45,7 @@ handles input data the way you want.
 
 If you want to filter out data extend [AbstractFilter](Modifier/Event/Filter/AbstractFilter.php).
 If you want to modify data extend [AbstractReplace](Modifier/Event/Replace/AbstractReplace.php) or
-AbstractSet(Modifier/Event/Set/AbstractSet.php) or create a new type of modifier.
+[AbstractSet](Modifier/Event/Set/AbstractSet.php) or create a new type of modifier.
 
 Add your created class to [config/ModifierClassMap.php](config/ModifierClassMap.php) to make it available for
 [configuration](config/Configuration_Example.php).
