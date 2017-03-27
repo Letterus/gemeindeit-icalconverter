@@ -14,10 +14,16 @@ imported to [Booked Scheduler](https://www.bookedscheduler.com/).
 ## How to use
 
 1. Install [composer](https://getcomposer.org/download/).
-2. `php composer.phar install`
+2. Execute composer:
+
+	```
+    cd <iCal directory>
+    php composer.phar install
+	```    
+
 3. Execute iCalConverter:
 
-```
+	```
     Usage:
     ./iCalConverter.php <configurationfile> <importfile> <exportfile> [-debug]
 
@@ -30,7 +36,7 @@ imported to [Booked Scheduler](https://www.bookedscheduler.com/).
     -debug Add this option if you want to save debug information to log files in the log directory.
   
     Using the options --help, -help, -h oder -? you get this help.
-```
+	```
 
 ## How to configure
 

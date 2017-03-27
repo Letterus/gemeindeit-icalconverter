@@ -79,7 +79,7 @@ class Converter implements LoggerAwareInterface {
      * Do not run this method if you want to inject data or calendar objects.
      * 
      * @throws \InvalidArgumentException If calendar is not found or data is not valid.
-     * @thorws \Exception If input file could not be opened.
+     * @throws \Exception If input file could not be opened.
      * @return \self
      */
     function prepare() : self {
@@ -106,6 +106,10 @@ class Converter implements LoggerAwareInterface {
     function convert() : self {
         $this->checkPreconditionsToConvert();
         
+        // Copy timezone information.
+        $this->exportCal->VTIMEZONE = $this->importCal->VTIMEZONE;
+        
+        // Setup counters
         $numEventsChanged = 0;
         $numEventsFilteredOut = 0;
         $numEvents = count($this->importCal->VEVENT);
@@ -247,7 +251,7 @@ class Converter implements LoggerAwareInterface {
     }
     
     /**
-     * Returns calendar to be converted/imported
+     * Returns input calendar to imported
      * 
      * @return \Sabre\VObject\Component\VCalendar
      */
@@ -256,7 +260,7 @@ class Converter implements LoggerAwareInterface {
     }
 
     /**
-     * Returns calendar to be converted to/exported
+     * Returns output calendar to be exported
      * 
      * @return \Sabre\VObject\Component\VCalendar
      */

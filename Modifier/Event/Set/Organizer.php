@@ -21,7 +21,7 @@ namespace GemeindeIT\iCalConverter\Modifier\Event\Set;
 use Sabre\VObject\Component;
 
 /**
- * Modifier for Organizer: Just set it to e specific value.
+ * Modifier for Organizer: Just set it to a specific value.
  *
  * @author Johannes Brakensiek <johannes@gemeinde-it.de>
  */

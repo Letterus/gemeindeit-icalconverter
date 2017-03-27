@@ -24,7 +24,9 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- * Description of AbstractModifier
+ * AbstractModifier
+ * 
+ * Provides logger and interface for iCal modifiers
  *
  * @author Johannes Brakensiek <johannes@gemeinde-it.de>
  */
@@ -45,10 +47,10 @@ abstract class AbstractModifier implements LoggerAwareInterface {
     }
     
     /**
-     * Modifys a VObject component.
+     * Interface to modify a VObject component.
      * 
      * @param Sabre\VObject\Component $component
-     * @return bool True, if the component was modified or filtered/sorted out.
+     * @return bool True, if the component was modified or is to be filtered/sorted out.
      */
     abstract public function process(Component $component) : bool;
 }
