@@ -30,6 +30,7 @@ use Psr\Log\LoggerInterface;
 class Application {
     
     const CLASS_MAP_FILE = __DIR__.'/config/ModifierClassMap.php';
+    const CALENDAR_CONFIG_KEY = 'calendar';
     
     /**
      *
@@ -53,8 +54,13 @@ class Application {
         // Add modifiers…
         $this->addModifiersToConverter($converter, $this->getModifierClassMap(), $logger);
         
+        $expandEnd = null;
+        if (isset($this->configuration['calendar']['expandEnd'])) {
+            $expandEnd = $this->configuration['calendar']['expandEnd'];
+        }
+
         $converter->prepare()
-                  ->convert()
+                  ->convert($expandEnd)
                   ->save();
         
         return 0;
@@ -69,9 +75,14 @@ class Application {
      */
     function addModifiersToConverter(Converter $converter, array $classMap, LoggerInterface $logger) {
         
-        foreach ($this->configuration as $item) {
+        foreach ($this->configuration as $key => $item) {
+            // Ignore general calendar configuration key, it's not meant for modifiers
+            if($key === self::CALENDAR_CONFIG_KEY) {
+                continue;
+            }
+            
             foreach($item as $class => $classConfig) {
-
+                
                 if(!isset($classMap[$class])) {
                     throw new \OutOfRangeException('Class map does not know of a PHP class for ' . $class);
                 }

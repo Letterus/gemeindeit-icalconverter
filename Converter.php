@@ -17,6 +17,7 @@
  */
 namespace GemeindeIT\iCalConverter;
 
+use DateTimeInterface;
 use Sabre\VObject;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -98,17 +99,24 @@ class Converter implements LoggerAwareInterface {
     /**
      * Execute the conversion of the data
      * 
-     * @return \self
+     * @return self
+     * @param DateTimeInterface $expandEnd Time until which recurring events of the import calendar should be computed.
      * @throws \DomainException If there is no data prepared to convert.
      * @throws \DomainException If the input calendar data is not valid.
      * @see prepare()
      */
-    function convert() : self {
+    function convert(DateTimeInterface $expandEnd = null) : self {
         $this->checkPreconditionsToConvert();
         
         // Copy timezone information.
         $this->exportCal->VTIMEZONE = $this->importCal->VTIMEZONE;
         
+        // Expand calendar (compute recurring events depending on parameter)
+        if ($expandEnd !== null) {
+            $this->logger->info('Computing recurring events in import calendar until… (expanding)', array($expandEnd));
+            $this->importCal = $this->importCal->expand($this->getEarliestStartDateOfCal($this->importCal), $expandEnd);
+        }
+
         // Setup counters
         $numEventsChanged = 0;
         $numEventsFilteredOut = 0;
@@ -236,6 +244,22 @@ class Converter implements LoggerAwareInterface {
         if(empty($this->modifierRegistry)) {
             throw new \DomainException(__CLASS__. ' has no modifiers set up.');
         }
+    }
+    
+    protected function getEarliestStartDateOfCal(VObject\Component\VCalendar $calendar) {
+        $earliestStartDate = new \DateTime();
+        $this->logger->debug('Setting earliest start date to now.', array($earliestStartDate, __METHOD__));
+        
+        foreach($calendar->VEVENT as $event) {
+            
+            if($event->DTSTART->getDateTime($earliestStartDate->getTimezone()) < $earliestStartDate) {
+                
+                $earliestStartDate = $event->DTSTART->getDateTime($earliestStartDate->getTimezone());
+                $this->logger->debug('Setting earliest start date to: ', array($earliestStartDate, __METHOD__));
+            }
+        }
+        
+        return $earliestStartDate;
     }
 
     protected function saveExportFile(VObject\Component\VCalendar $calendar, string $exportFileName) {

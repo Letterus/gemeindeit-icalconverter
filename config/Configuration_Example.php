@@ -26,9 +26,20 @@ $saaletage     = 'Haus Fuhr - Saaletage';
 $saalFoyer     = 'Haus Fuhr - gr. Saal und Foyer';
 $ohneZuordnung = 'Haus Fuhr - Ohne Zuordnung';
 
+// Calculate recurring events for the next two years
+$interval = new \DateInterval('P2Y');
+$end = new \DateTime();
+$end->add($interval);
+
+
 // This example shows how to configure a conversion of a Google calendar
 // to the ressource management software Booked Scheduler.
 return [
+    // General calendar converting configuration
+    'calendar' => [
+        'expandEnd' => $end
+    ],
+    
     // Filter all events in the past (before now)
     ['filter_time_before' => new \DateTime()],
     

@@ -18,6 +18,10 @@
 
 namespace GemeindeIT\iCalConverter\Modifier\Event\Filter;
 
+use DateTimeInterface;
+use DateInterval;
+use DateTime;
+use InvalidArgumentException;
 use Sabre\VObject\Component;
 
 /**
@@ -37,22 +41,22 @@ class TimeBefore extends AbstractFilter {
      */
     function process(Component $component) : bool {
         
-        if($this->config instanceof \DateTime) {
-            $criterium = $this->config;
+        if($this->config instanceof DateTimeInterface) {
+            $start = $this->config;
         
         } elseif(is_string($this->config)) {
-            $criterium = new \DateTime($this->config);
+            $start = new DateTime($this->config);
             
         } else {
-            throw new \InvalidArgumentException('Config contains no valid DateTime value for comparison.');
+            throw new InvalidArgumentException('Config contains no valid DateTime value for comparison.');
         }
         
-        // Compare times
-        if ($component->DTSTART->getDateTime() <= $criterium) {
-            $this->logger->debug('Event marked to be filtered out.', array($component->UID, $criterium));
-            return true;
-        }
-
-        return false;
+        // Assuming no event is longs more than 2 years
+        $interval = new DateInterval('P2Y');
+        $end = clone $start;
+        $end->add($interval);
+        
+        // Check if event falls in time range 2 years after configurated DateTime
+        return (!$component->isInTimeRange($start, $end));
     }
 }
