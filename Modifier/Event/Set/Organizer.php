@@ -43,9 +43,9 @@ class Organizer extends AbstractSet {
         if(!isset($component->ORGANIZER) 
                 || strtolower($component->ORGANIZER) !== strtolower($this->config))
         {
-            $component->ORGANIZER = $this->config;
+            $component->ORGANIZER = $this->config;$component->ORGANIZER = $this->config;
             $modified = true;
-            $this->logger->debug('Setting organizer of event to ' . $this->config, array($component->UID, $this));
+            $this->logger->debug('Set organizer of event to ' . $this->config, array($component->UID, $this));
         }
         
         return $modified;
