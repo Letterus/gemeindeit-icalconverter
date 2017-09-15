@@ -61,7 +61,7 @@ Add your created class to [config/ModifierClassMap.php](config/ModifierClassMap.
 *Can I use iCalConverter for my webservice?*
 
 Yes, you can. Please consider the requirements of the AGPL. Keep in mind the
-software was build for local execution via CLI. It does only basic input
+software was build for local execution via CLI. It only does very basic input
 validation currently and is served without any warranty.
 
 Further questions? Contact johannes@gemeinde-it.de.
