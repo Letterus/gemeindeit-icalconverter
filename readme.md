@@ -8,7 +8,7 @@ changes on iCal/ics files. It won't convert to other file formats.
 
 You can use it f.e. if you want to free your room reservation calendar from
 Google Calendar and convert this calendar to a format that can be easily
-imported to [Booked Scheduler](https://www.bookedscheduler.com/).
+imported to [Booked Scheduler](https://github.com/effgarces/BookedScheduler).
 
 
 ## How to use
@@ -64,4 +64,4 @@ Yes, you can. Please consider the requirements of the AGPL. Keep in mind the
 software was build for local execution via CLI. It only does very basic input
 validation currently and is served without any warranty.
 
-Further questions? Contact johannes@gemeinde-it.de.
+Further questions? Contact letterus AT codingpastor DOT de.
